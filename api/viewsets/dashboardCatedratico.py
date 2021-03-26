@@ -24,7 +24,7 @@ class DashboardCatedraticoView(GenericViewSet):
         try:
             
             #Ciclo escolar Actual
-            ciclo_actual = CicloEscolar.objects.order_by('-anio')
+            #ciclo_actual = CicloEscolar.objects.order_by('-anio')
 
             #Total de Usuarios registrados en el sistema
             total_users = User.objects.all().count()
