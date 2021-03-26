@@ -7,6 +7,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
+        depth = 1
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -22,11 +23,11 @@ class UserSerializer(serializers.ModelSerializer):
             'profile',
             'password'
         )
+        depth = 2
 
 
 class UserReadSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(required=False)
-
     class Meta:
         model = User
         fields = (
@@ -36,5 +37,6 @@ class UserReadSerializer(serializers.ModelSerializer):
             'is_superuser',
             'is_staff',
             'email',
-            'profile',
+            'profile'
+               
         )

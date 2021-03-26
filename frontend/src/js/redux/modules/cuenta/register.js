@@ -25,15 +25,17 @@ export const setLoader = loader => ({
 
 export const onSubmit = (data = {}) => (dispatch) => {
     dispatch(setLoader(true));
+    data.tipouser = data.tipouser.value;
     api.post('user', data).then(() => {
-        dispatch(push("/login"));
+        dispatch(push("/usuarios"));
         NotificationManager.success('Cuenta creada con éxito, puedes iniciar sesión', 'Éxito', 3000);
     }).catch(() => {
         NotificationManager.error('Credenciales incorrectas, vuelva a intentar', 'ERROR', 0);
     }).finally(() => {
         dispatch(setLoader(false));
     });
-};
+}
+
 
 export const logOut = () => (dispatch) => {
     localStorage.removeItem('token');
@@ -43,6 +45,7 @@ export const logOut = () => (dispatch) => {
 export const actions = {
     onSubmit,
     logOut,
+
 };
 
 export const reducers = {

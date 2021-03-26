@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
-
+import Loader from 'react-loader-spinner';
+import Grid from "../Utils/Grid";
 
 class Demo extends Component {
+    
+    componentWillMount = () => {
+        const {dashboardC} = this.props
+        dashboardC();
+    }
+
     render() {
+      /*  const {data} = this.props;
+        console.log("Data dashboard: ", data);*/
+        console.log("Props: ", this.props);
         return (
-            <div className="page-header py-4 no-gutters row">
-                <div className="text-sm-left mb-3 text-center text-md-left mb-sm-0 col-12 col-sm-4">
-                    <span
-                        className="text-uppercase page-subtitle">Escritorio ejemplo
-                    </span>
-                    <h3 className="page-title">Titulo secundario</h3>
-                </div>
-            </div>
+            <React.Fragment>
+                
+                <h4>Datos Estadisticos</h4>
+                <table className = 'table table-borderred'>
+                    <thead>
+                        <tr>
+                            <th>Total de Estudiantes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+
+            </React.Fragment>
+
         );
     }
 }

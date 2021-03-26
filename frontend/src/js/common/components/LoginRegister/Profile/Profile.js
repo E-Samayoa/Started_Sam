@@ -3,7 +3,24 @@ import { Field, reduxForm } from 'redux-form';
 import {renderField, renderFilePicker} from '../../Utils/renderField/renderField';
 import ProfileForm from "./ProfileForm";
 
-
+const obtenerTipoUser = (search) => {
+    return api.get('tipouser', {search}).then(data => {
+        console.log("data: ", data);
+        if(data){
+            const tipousers = [];
+            data.results.forEach(tipouser => {
+                tipousers.push({
+                    value: tipouser.id,
+                    label: tipouser.tipo_user
+                })
+            })
+            return tipousers;
+        }
+    }).catch(error => {
+        console.log("error: ", error);
+        return [];
+    })
+}
 class Profile extends Component {
 
     constructor(props) {
@@ -20,11 +37,13 @@ class Profile extends Component {
         update({...data, avatar: null}, [{"file": this.state.avatar, "name": "avatar"}]);
     };
 
+    
+
     render() {
         const { me } = this.props;
 
         return (
-            <ProfileForm onSubmit={this.update} me={me} setAvatar={this.setAvatar} />
+            <ProfileForm onSubmit={this.update} me={me} obtenerTipoUser={obtenerTipoUser} setAvatar={this.setAvatar} />
         );
     }
 }

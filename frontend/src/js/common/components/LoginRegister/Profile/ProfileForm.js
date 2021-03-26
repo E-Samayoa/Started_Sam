@@ -2,14 +2,42 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { validate, validatorFromFunction, validators, combine } from 'validate-redux-form';
 import {renderField, renderFilePicker, SelectField, renderNumber} from '../../Utils/renderField/renderField';
+import { api } from '../../../../utility/api';
+import {
+    AsyncSelectField,
+} from 'Utils/renderField/renderField/';
 
 const genders = [
     {"label": "Masculino", "value": 0},
     {"label": "Femenino", "value": 1},
+
+    
 ];
 
+const obtenerTipoUser = (search) => {
+    return api.get('tipouser', {search}).then(data => {
+        console.log("data: ", data);
+        if(data){
+            const tipousers = [];
+            data.results.forEach(tipouser => {
+                tipousers.push({
+                    value: tipouser.id,
+                    label: tipouser.tipo_user
+                })
+            })
+            return tipousers;
+        }
+    }).catch(error => {
+        console.log("error: ", error);
+        return [];
+    })
+}
+
+
+
 const ProfileForm = (props) => {
-    const { handleSubmit, me, setAvatar } = props;
+    console.log("PROPS:", props);
+    const { handleSubmit, me, setAvatar , } = props;
     return (
             <form action="" onSubmit={handleSubmit} className="py-4">
                 <h2>PERFIL</h2>
@@ -54,10 +82,19 @@ const ProfileForm = (props) => {
                                 <Field name="profile.gender" placeholder="Género" component={SelectField} options={genders} className="form-control" />
                             </div>
                         </div>
+                        
                         <div className="form-group has-feedback flex-1 mx-3">
                             <div className="form-group has-feedback">
                                 <label htmlFor="profile.address">Dirección</label>
                                 <Field name="profile.address" placeholder="Dirección" component={renderField} type="text" className="form-control" />
+                            </div>
+                            <div className="form-group has-feedback">
+                            <label>Rol</label>
+                                <Field
+                                    name="tipouser"
+                                    loadOptions={obtenerTipoUser}
+                                    component={AsyncSelectField}
+                                />
                             </div>
                         </div>
                     </div>

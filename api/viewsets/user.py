@@ -8,9 +8,11 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from django.db import transaction
 from rest_framework.settings import api_settings
 
-from api.models import Profile
+
+from api.models import Profile, TipoUser
 from api.serializers import UserSerializer, UserReadSerializer
 
 
@@ -37,15 +39,26 @@ class UserViewset(viewsets.ModelViewSet):
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
+
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        
+        data = request.data
+        serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         usuario = User.objects.get(username=request.data["username"])
         usuario.set_password(request.data["password"])
         usuario.save()
+        id_tipouser = data.get("tipouser")
+        tipouser = TipoUser.objects.get(pk=id_tipouser)
+        profile = Profile.objects.create(
+            user = usuario,
+            tipouser = tipouser  
+        )
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        
+    
 
     def perform_create(self, serializer):
         serializer.save()

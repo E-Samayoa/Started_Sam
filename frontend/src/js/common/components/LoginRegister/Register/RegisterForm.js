@@ -1,11 +1,43 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { search } from 'superagent';
 import { validate, validatorFromFunction, validators, combine } from 'validate-redux-form';
+import { api } from '../../../../utility/api';
 import { renderField } from '../../Utils/renderField';
+import {
+    AsyncSelectField,
+} from 'Utils/renderField/renderField/';
+
+//Funcion para obtener tipo de usuario
+//al crearlo desde el redux genera error en el asyncSelectField
+
+const obtenerTipoUser = (search) => {
+    return api.get('tipouser', {search}).then(data => {
+        console.log("data: ", data);
+        if(data){
+            const tipousers = [];
+            data.results.forEach(tipouser => {
+                tipousers.push({
+                    value: tipouser.id,
+                    label: tipouser.tipo_user
+                })
+            })
+            return tipousers;
+        }
+    }).catch(error => {
+        console.log("error: ", error);
+        return [];
+    })
+}
+
+
+
 
 const RegisterForm = (props) => {
-    const { handleSubmit, pristine, reset, submitting } = props;
+    console.log("props en registro", props)
+    const { handleSubmit, pristine, reset, submitting} = props;
     return (
+        
         <form name="loginForm" className="form-validate mb-lg" onSubmit={handleSubmit}>
             <div className="form-group has-feedback">
                 <label htmlFor="first_name">Nombre</label>
@@ -19,6 +51,15 @@ const RegisterForm = (props) => {
                 <label htmlFor="username">Usuario</label>
                 <Field name="username" label="Usuario" component={renderField} type="text" className="form-control" />
             </div>
+            <div>
+                <label>Rol</label>
+                <Field
+                    name="tipouser"
+                    loadOptions={obtenerTipoUser}
+                    component={AsyncSelectField}
+                    />
+            </div>
+            <br />
             <div className="form-group has-feedback">
                 <label htmlFor="password">Contraseña</label>
                 <Field

@@ -37,6 +37,104 @@ class SideBar extends Component {
                                 <span>Home</span>
                             </NavLink>
                         </li>
+                    
+                        <li className="nav-item">
+                            <NavLink to="/secciones" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                                <span>Secciones</span>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/cursos" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">library_books</i>
+                                </div>
+                                <span>Cursos</span>
+                            </NavLink>
+                        </li>
+                        
+                        <li className="nav-item">
+                            <NavLink to="/grados" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">grade</i>
+                                </div>
+                                <span>Grados</span>
+                            </NavLink>
+                        </li>
+
+                        <li className="nav-item">
+                            <NavLink to="/ciclos" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                                <span>Ciclos Escolares</span>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/catedraticos" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                                <span>Catedraticos</span>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/estudiantes" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">person</i>
+                                </div>
+                                <span>Estudiantes</span>
+                            </NavLink>
+                        </li>
+
+                        <li className="nav-item">
+                            <NavLink to="/profesiones" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">person</i>
+                                </div>
+                                <span>Profesiones</span>
+                            </NavLink>
+                        </li>
+
+                        <li className="nav-item">
+                            <NavLink to="/tipousers" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">people_outline</i>
+                                </div>
+                                <span>Tipos de Usuarios</span>
+                            </NavLink>
+                        </li>
+
+                        
+                        <li className="nav-item">
+                            <NavLink to="/eventos" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">event</i>
+                                </div>
+                                <span>Eventos</span>
+                            </NavLink>
+                        </li>
+
+                        <li className="nav-item">
+                            <NavLink to="/niveles" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">event</i>
+                                </div>
+                                <span>Niveles</span>
+                            </NavLink>
+                        </li>
+
+                        <li className="nav-item">
+                            <NavLink to="/usuarios" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i class="material-icons">event</i>
+                                </div>
+                                <span>Usuarios</span>
+                            </NavLink>
+                        </li>
+
                         <li className="nav-item">
                             <NavLink to="/page2" className="nav-link" activeClassName={'active'}>
                                 <div className="d-inline-block item-icon-wrapper">
