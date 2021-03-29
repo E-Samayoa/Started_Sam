@@ -11,8 +11,7 @@ const GUARDAR_DASHBOARD = "GUARDAR_DASHBOARD";
 
 export const dashboardC = () => (dispatch, getStore) =>{
     api.get('/dashboardC/infDashboard').then((response) => {
-        console.log("response: ", response);
-        //dispatch({type: GUARDAR_DASHBOARD, data: response});
+        dispatch({type: GUARDAR_DASHBOARD, data: response});
     }).catch((error) => {
         NotificationManager.error(
             `Ocurrio un error ${error.detail}`, 

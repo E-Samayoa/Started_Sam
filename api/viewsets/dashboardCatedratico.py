@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.settings import api_settings
 from api.models import CicloEscolar, Nivel, Profile, Grado, Seccion
-from api.serializers import CicloEscolarSerializer, ProfesionSerializer, GradoSerializer, SeccionSerializer, ProfileSerializer
+from api.serializers import CicloEscolarSerializer, ProfesionSerializer, GradoSerializer, SeccionSerializer, ProfileSerializer, NivelSerializer
 from django.db.models import Count
 
 
@@ -24,20 +24,23 @@ class DashboardCatedraticoView(GenericViewSet):
         try:
             
             #Ciclo escolar Actual
-            #ciclo_actual = CicloEscolar.objects.order_by('-anio')
+            ciclo_actual = CicloEscolar.objects.filter(activo = True, anio = 2021)
 
             #Total de Usuarios registrados en el sistema
             total_users = User.objects.all().count()
 
             #Total de Catedraticos registrados en el sitema
-            total_catedraticos = Profile.objects.all().filter(
+            total_catedraticos = Profile.objects.filter(
                 tipouser__tipo_user = "Catedratico"
-                )
+                ).count()
 
             #Total de Estudiantes Registrados en el sistema
-            total_estudiantes = Profile.objects.all().filter(
+            total_estudiantes = Profile.objects.filter(
                 tipouser__tipo_user = "Estudiante"
-                )
+                ).count()
+
+            #Niveles registrados en el sistema 
+            niveles = Nivel.objects.all()
 
             #Total de Grados registrados en el sistema
             total_grados = Grado.objects.all().count()
@@ -47,8 +50,10 @@ class DashboardCatedraticoView(GenericViewSet):
 
             data = {
                 'total_users' : total_users,
-                'total_catedraticos' : ProfileSerializer(total_catedraticos, many=True).data,
-                'total_estudiantes' : ProfileSerializer(total_estudiantes, many=True).data,
+                'ciclo_escolar' : CicloEscolarSerializer(ciclo_actual, many= True).data,
+                'total_catedraticos' : total_catedraticos,
+                'total_estudiantes' : total_estudiantes,
+                'niveles' : NivelSerializer(niveles, many = True).data,
                 'total_grados' : total_grados,
                 'total_seccion' : total_seccion
             }   
